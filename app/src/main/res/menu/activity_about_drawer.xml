@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_main"
+            android:icon="@drawable/ic_attach_money_black_24dp"
+            android:title="Latest Payments" />
+        <item
+            android:id="@+id/nav_items"
+            android:icon="@drawable/ic_format_list_bulleted_black_24dp"
+            android:title="Items" />
+        <item
+            android:id="@+id/nav_payments"
+            android:icon="@drawable/ic_payment_black_24dp"
+            android:title="Make Payments" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_info_black_24dp"
+            android:title="About" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_print_black_24dp"
+            android:title="Printer Settings" />
+    </group>
+
+    <!--<item android:title="Communicate">-->
+    <!--<menu>-->
+    <!--<item-->
+    <!--android:id="@+id/nav_share"-->
+    <!--android:icon="@drawable/ic_menu_share"-->
+    <!--android:title="Share" />-->
+    <!--<item-->
+    <!--android:id="@+id/nav_send"-->
+    <!--android:icon="@drawable/ic_menu_send"-->
+    <!--android:title="Send" />-->
+    <!--</menu>-->
+    <!--</item>-->
+
+</menu>

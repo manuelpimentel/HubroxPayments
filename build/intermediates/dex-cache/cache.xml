@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/home/manuel/Documentos/hubrox payments/HubRoxPayment-master/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/23.2.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="8c108c22c99e794eff255bb34d2a461200c4cbb0">
+        <dex dex="/home/manuel/Documentos/hubrox payments/HubRoxPayment-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-23.2.0_03bda537b93dd08cd050e524de0ce71abc52b7dc/classes.dex" />
+    </item>
+    <item
+        jar="/home/manuel/Documentos/hubrox payments/HubRoxPayment-master/app/build/intermediates/exploded-aar/com.android.support/design/23.2.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="1aa5b025efe97f5006f5be16d6ca67c6c3c0c0d8">
+        <dex dex="/home/manuel/Documentos/hubrox payments/HubRoxPayment-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-design-23.2.0_58044afba838fc21e7d715a0ed711b63140f75b5/classes.dex" />
+    </item>
+    <item
+        jar="/home/manuel/Documentos/hubrox payments/HubRoxPayment-master/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.2.0/jars/libs/internal_impl-23.2.0.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="6e239441500605809818997dd63b62a947195f8c">
+        <dex dex="/home/manuel/Documentos/hubrox payments/HubRoxPayment-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-23.2.0_08c66ee4fc4b94592fdc23c681ffbf13d3396594/classes.dex" />
+    </item>
+    <item
+        jar="/home/manuel/Documentos/hubrox payments/HubRoxPayment-master/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="a84e494d3ba43f8ac0418b574ae103c1afe0403a">
+        <dex dex="/home/manuel/Documentos/hubrox payments/HubRoxPayment-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_fe35250af3254adb3fb258edf974ddb4246d798d/classes.dex" />
+    </item>
+    <item
+        jar="/home/manuel/Documentos/hubrox payments/HubRoxPayment-master/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="d0dda274b703dd9c5bb056867649d22b4171ae7d">
+        <dex dex="/home/manuel/Documentos/hubrox payments/HubRoxPayment-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-basement-8.1.0_6a1f41c103216fd51c3bd4829cd6cf54179ce03b/classes.dex" />
+    </item>
+    <item
+        jar="/home/manuel/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/23.2.0/support-annotations-23.2.0.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="c5bf571bb10462bd90e5419ade67793f71acbc87">
+        <dex dex="/home/manuel/Documentos/hubrox payments/HubRoxPayment-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-23.2.0_e15441ddec2b706b37364e2199294733fa3aeac9/classes.dex" />
+    </item>
+    <item
+        jar="/home/manuel/Documentos/hubrox payments/HubRoxPayment-master/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.2.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="d4c936aa8c7d2522c82e3f1829c791d9e367f009">
+        <dex dex="/home/manuel/Documentos/hubrox payments/HubRoxPayment-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-recyclerview-v7-23.2.0_e40547c3330429f4d342194bf85a3dd15ba53c58/classes.dex" />
+    </item>
+    <item
+        jar="/home/manuel/Documentos/hubrox payments/HubRoxPayment-master/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="6e3578f92f7462d1a935a1d36173e3bdd1234976">
+        <dex dex="/home/manuel/Documentos/hubrox payments/HubRoxPayment-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-23.2.0_46bed3bec3e6d2d2f62a6497bf6125fc83200f8f/classes.dex" />
+    </item>
+    <item
+        jar="/home/manuel/Documentos/hubrox payments/HubRoxPayment-master/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/8.1.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="4477ea44f5ec5ad064022a22691732d7638ff197">
+        <dex dex="/home/manuel/Documentos/hubrox payments/HubRoxPayment-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-appindexing-8.1.0_b71d459fc39c9a26bbe93a1ae3ae26736dc9233b/classes.dex" />
+    </item>
+    <item
+        jar="/home/manuel/Documentos/hubrox payments/HubRoxPayment-master/app/libs/platform_sdk_v2.2.0.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="198fb6e3856d957a23120e162256ac283c9a9465">
+        <dex dex="/home/manuel/Documentos/hubrox payments/HubRoxPayment-master/app/build/intermediates/transforms/dex/debug/folders/1000/2/platform_sdk_v2.2.0_338082e1aee55784f5a3953a3815d8d1bf39dc02/classes.dex" />
+    </item>
+    <item
+        jar="/home/manuel/Documentos/hubrox payments/HubRoxPayment-master/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.2.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="e5f32fa48a3eb2de0c987025c11b6e3864b634d9">
+        <dex dex="/home/manuel/Documentos/hubrox payments/HubRoxPayment-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-23.2.0_ffcfd02b7c69a6c42e790369d528b28571c3b5ae/classes.dex" />
+    </item>
+    <item
+        jar="/home/manuel/Documentos/hubrox payments/HubRoxPayment-master/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.2.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="292a9fa091757208efa65e77eef63088247e51f3">
+        <dex dex="/home/manuel/Documentos/hubrox payments/HubRoxPayment-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-23.2.0_17b7fbce6b1f181e4319441f16b149f98042f4b9/classes.dex" />
+    </item>
+    <item
+        jar="/home/manuel/Documentos/hubrox payments/HubRoxPayment-master/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="3fff2c5ef6c58da5ed47de1f9df3acbfc3ccbaea">
+        <dex dex="/home/manuel/Documentos/hubrox payments/HubRoxPayment-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_580dcf3c85eb3909b1fcdcf2ad746d487734fb22/classes.dex" />
+    </item>
+
+</items>
