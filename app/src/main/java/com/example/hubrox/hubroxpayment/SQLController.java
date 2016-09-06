@@ -36,6 +36,7 @@ public class SQLController {
         sqLiteDatabase.insert(MyDbHelper.TABLE_NAME, null, cv);
     }
 
+
     public void deleteData(String code){
 
         sqLiteDatabase.delete(myDbHelper.TABLE_NAME, myDbHelper.USER_CODE + "=" + code, null);

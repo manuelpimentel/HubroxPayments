@@ -1,9 +1,12 @@
 package com.example.hubrox.hubroxpayment;
 
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
 import android.device.ScanManager;
 import android.media.AudioManager;
 import android.media.SoundPool;
@@ -15,20 +18,32 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PaymentsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+
+    TableRow row;
     TableLayout tableLayout;
     TextView totalPrice;
+    SQLController sqlController;
+    float total = 0;
 
+    private AlertDialog.Builder dialogBuilder;
     private ScanManager scanManager;
     private boolean isScanning = false;
     private SoundPool soundPool = null;
@@ -68,12 +83,14 @@ public class PaymentsActivity extends AppCompatActivity
         this.tableLayout = ((TableLayout) findViewById(R.id.paymentsTableLayout));
         this.totalPrice = ((TextView) findViewById(R.id.totalPrice));
 
+        sqlController = new SQLController(this);
+
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         showScanResult = (EditText) findViewById(R.id.scanResult);
 
 //        startScanner();
 
-        Button scanButton = (Button) findViewById(R.id.scanButton);
+        /*Button scanButton = (Button) findViewById(R.id.scanButton);
         scanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,7 +104,7 @@ public class PaymentsActivity extends AppCompatActivity
                 }
                 scanManager.startDecode();
             }
-        });
+        });*/
 
         Button swipeButton = (Button) findViewById(R.id.swipeButton);
         swipeButton.setOnClickListener(new View.OnClickListener() {
@@ -98,14 +115,15 @@ public class PaymentsActivity extends AppCompatActivity
             }
         });
 
-        Button insertButton = (Button) findViewById(R.id.insertButton);
+        /*Button insertButton = (Button) findViewById(R.id.insertButton);
         insertButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PaymentsActivity.this, ICCActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
+
 
         Button tapButton = (Button) findViewById(R.id.tapButton);
         tapButton.setOnClickListener(new View.OnClickListener() {
@@ -212,7 +230,7 @@ public class PaymentsActivity extends AppCompatActivity
     protected void onResume() {
         // TODO Auto-generated method stub
         super.onResume();
-        initScan();
+//        initScan();
 //        showScanResult.setText("");
         IntentFilter filter = new IntentFilter();
 //        filter.addAction(SCAN_ACTION);
@@ -230,4 +248,96 @@ public class PaymentsActivity extends AppCompatActivity
         // TODO Auto-generated method stub
         return super.onKeyDown(keyCode, event);
     }
+
+    public void insertItem(View view) {
+        final ArrayList<Item> lItem = new ArrayList<>();
+
+        dialogBuilder = new AlertDialog.Builder(this)
+                .setTitle("Insert")
+                .setMessage("Please type the barcode of the item");
+        final Context context = this;
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View v = inflater.inflate(R.layout.delete_dialog, null);
+        dialogBuilder.setView(v);
+
+        final EditText itemCodeEditText = (EditText) v.findViewById(R.id.itemCodeEditText);
+
+        dialogBuilder.setPositiveButton("Insert", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                new AlertDialog.Builder(context)
+                        .setTitle("Insert")
+                        .setMessage("Do you really want to buy this item?")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                //tableLayout.removeAllViews();
+                                String itemCode = itemCodeEditText.getText().toString();
+                                sqlController.open();
+                                Cursor c = sqlController.getItem(itemCode);
+                                /*Item item = new Item();
+                                item.setCode(c.getString(1));
+                                item.setDesc(c.getString(2));
+                                item.setPrice(Integer.getInteger(c.getString(3)));
+                                lItem.add(item);*/
+                                total = Float.parseFloat(c.getString(3)) +  total;
+                                totalPrice.setText("Total: " + total);
+
+                                BuildTable(itemCode);
+                                Toast.makeText(getBaseContext(), "Item Succesfully Added", Toast.LENGTH_LONG).show();
+                            }})
+                        .setNegativeButton(android.R.string.no, null).show();
+            }
+        });
+
+        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog dialogAdd = dialogBuilder.create();
+        dialogAdd.show();
+
+    }
+
+    private void BuildTable(String itemCode) {
+
+        sqlController.open();
+        Cursor c = sqlController.getItem(itemCode);
+        //Cursor c = sqlController.readEntry();
+
+        int cols = c.getColumnCount();
+
+        c.moveToFirst();
+
+            row = new TableRow(this);
+            row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
+                    TableRow.LayoutParams.WRAP_CONTENT));
+
+            // inner for loop
+            for (int j = 1; j < cols; j++) {
+
+                TextView tv = new TextView(this);
+                tv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
+                        TableRow.LayoutParams.WRAP_CONTENT));
+//                tv.setBackgroundResource(R.drawable.cell_shape);
+                tv.setGravity(Gravity.CENTER);
+                tv.setTextSize(15);
+                tv.setPadding(0,5,0,5);
+
+                tv.setText(c.getString(j));
+
+                row.addView(tv);
+
+            }
+
+            c.moveToNext();
+
+            tableLayout.addView(row);
+
+        sqlController.close();
+    }
+
+
 }

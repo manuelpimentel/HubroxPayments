@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.device.ScanManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -34,6 +35,7 @@ public class ItemsActivity extends AppCompatActivity
     TableRow row;
     SQLController sqlController;
     private AlertDialog.Builder dialogBuilder;
+    private ScanManager scanManager;
 
     private void addDialog() {
         dialogBuilder = new AlertDialog.Builder(this);
@@ -290,45 +292,6 @@ public class ItemsActivity extends AppCompatActivity
                 row.addView(tv);
 
             }
-
-            c.moveToNext();
-
-            tableLayout.addView(row);
-
-        }
-        sqlController.close();
-    }
-
-
-    private void BuildTable1() {
-        String number, code, description, price, conc;
-        sqlController.open();
-        Cursor c = sqlController.readEntry();
-        int rows = c.getCount();
-        c.moveToFirst();
-        // outer for loop
-        for (int i = 0; i < rows; i++) {
-
-            row = new TableRow(this);
-            row.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-
-            CheckBox Box= new CheckBox(this);
-
-            Box.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,TableRow.LayoutParams.WRAP_CONTENT));
-            Box.setGravity(Gravity.LEFT);
-            Box.setTextSize(15);
-            Box.setPadding(0, 5, 0, 5);
-
-            number = c.getString(0);
-            code = c.getString(1);
-            description = c.getString(2);
-            price = c.getString(3);
-
-            conc = number + " " + code + " " + description + " " + price;
-
-            Box.setText(conc);
-
-            row.addView(Box);
 
             c.moveToNext();
 
