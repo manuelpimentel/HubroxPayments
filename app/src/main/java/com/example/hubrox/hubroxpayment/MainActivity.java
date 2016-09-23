@@ -9,10 +9,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -26,8 +28,10 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        sqlController = new SQLController(this);
         this.tableLayout = ((TableLayout) findViewById(R.id.mainTableLayout));
-//        BuildTable();
+        tableLayout.removeAllViews();
+        BuildTable();
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -48,54 +52,103 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    private void BuildTable() {
-        this.sqlController.open();
-        Cursor cursor = this.sqlController.readEntry();
-        int i = cursor.getCount();
-        int j = cursor.getColumnCount();
-        cursor.moveToFirst();
-        TableRow tableRow = new TableRow(this);
-        String[] arrayOfString = {"ID", "Credit Card", "Amount", "Date"};
-        int m;
-        for (int k = 0; ; k++) {
-            if (k >= j) {
-                this.tableLayout.addView(tableRow);
-                m = 0;
-                if (m < i) {
-                    break;
+
+
+
+        private void BuildTable() {
+            try {
+                sqlController.open();
+                Cursor c = sqlController.readEntry(false);
+                TableRow row;
+
+                int rows = c.getCount();
+                int cols = c.getColumnCount();
+
+                c.moveToFirst();
+
+                // outer for loop
+                for (int i = 0; i < rows; i++) {
+
+                    row = new TableRow(this);
+                    row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
+                            TableRow.LayoutParams.WRAP_CONTENT));
+
+                    // inner for loop
+                    for (int j = 1; j < cols; j++) {
+
+                        TextView tv = new TextView(this);
+                        tv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
+                                TableRow.LayoutParams.WRAP_CONTENT));
+//                tv.setBackgroundResource(R.drawable.cell_shape);
+                        tv.setGravity(Gravity.CENTER);
+                        tv.setTextSize(15);
+                        tv.setPadding(0, 5, 0, 5);
+
+                        tv.setText(c.getString(j));
+
+                        row.addView(tv);
+
+                    }
+
+                    c.moveToNext();
+
+                    tableLayout.addView(row);
+
                 }
-                this.sqlController.close();
-                return;
+                sqlController.close();
+
+                /*
+
+                int i = cursor.getCount();
+                int j = cursor.getColumnCount();
+                cursor.moveToFirst();
+                TableRow tableRow = new TableRow(this);
+
+                int m;
+                for (int k = 0; ; k++) {
+                    if (k >= j) {
+                        this.tableLayout.addView(tableRow);
+                        m = 0;
+                        if (m < i) {
+                            break;
+                        }
+                        this.sqlController.close();
+                        return;
+                    }
+                    tableRow.setLayoutParams(new TableRow.LayoutParams(-1, -2));
+                    TextView localTextView1 = new TextView(this);
+                    localTextView1.setLayoutParams(new TableRow.LayoutParams(-2, -2));
+                    localTextView1.setGravity(17);
+                    localTextView1.setTextSize(18.0F);
+                    tableRow.addView(localTextView1);
+                }
+                TableRow localTableRow2 = new TableRow(this);
+                localTableRow2.setLayoutParams(new TableRow.LayoutParams(-1, -2));
+                for (int n = 0; ; n++) {
+                    if (n >= j) {
+                        cursor.moveToNext();
+                        this.tableLayout.addView(localTableRow2);
+                        m++;
+                        break;
+                    }
+                    TextView localTextView2 = new TextView(this);
+                    localTextView2.setLayoutParams(new TableRow.LayoutParams(-2, -2));
+                    localTextView2.setGravity(17);
+                    localTextView2.setTextSize(15);
+                    localTextView2.setPadding(0, 5, 0, 5);
+                    localTextView2.setText(cursor.getString(n));
+                    localTableRow2.addView(localTextView2);
+                }
+                */
             }
-            tableRow.setLayoutParams(new TableRow.LayoutParams(-1, -2));
-            TextView localTextView1 = new TextView(this);
-            localTextView1.setLayoutParams(new TableRow.LayoutParams(-2, -2));
-//            localTextView1.setBackgroundResource(2130837504);
-            localTextView1.setGravity(17);
-            localTextView1.setTextSize(18.0F);
-            localTextView1.setPadding(0, 5, 0, 5);
-            localTextView1.setText(arrayOfString[k]);
-            tableRow.addView(localTextView1);
-        }
-        TableRow localTableRow2 = new TableRow(this);
-        localTableRow2.setLayoutParams(new TableRow.LayoutParams(-1, -2));
-        for (int n = 0; ; n++) {
-            if (n >= j) {
-                cursor.moveToNext();
-                this.tableLayout.addView(localTableRow2);
-                m++;
-                break;
+            catch (NullPointerException nullPointer)
+            {
+                Toast.makeText(getBaseContext(), "No latest payments found", Toast.LENGTH_LONG).show();
             }
-            TextView localTextView2 = new TextView(this);
-            localTextView2.setLayoutParams(new TableRow.LayoutParams(-2, -2));
-//            localTextView2.setBackgroundResource(2130837504);
-            localTextView2.setGravity(17);
-            localTextView2.setTextSize(12.0F);
-            localTextView2.setPadding(0, 5, 0, 5);
-            localTextView2.setText(cursor.getString(n));
-            localTableRow2.addView(localTextView2);
         }
-    }
+
+
+
 
     @Override
     public void onBackPressed() {

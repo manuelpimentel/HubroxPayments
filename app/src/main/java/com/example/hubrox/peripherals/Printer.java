@@ -16,48 +16,62 @@
 
 package com.example.hubrox.peripherals;
 
+import android.content.Context;
 import android.content.Intent;
 import android.device.PrinterManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
+import com.example.hubrox.hubroxpayment.R;
+import com.example.hubrox.hubroxpayment.SettingsActivity;
 
 /**
  * Created by Jeff Wang on 2016/4/6.
  */
 public class Printer {
 
-    PrinterManager printer = new PrinterManager();
+    PrinterManager printerManager = new PrinterManager();
+    SettingsActivity settingsActivity = new SettingsActivity();
+    private Context context = null;
 
 //    private Context applicationContext = Printer.this;
 
     public void doPrint(int type) {
 
-        printer.setupPage(384, -1);
+        printerManager.setupPage(384, -1);
         switch (type) {
             case 1:
 //                String text = printInfo.getText().toString();
-//                printer.drawBarcode(text, 196, 300, 20, 2, 70, 0);
-//                printer.drawBarcode(text, 196, 300, 20, 2, 70, 1);
-//                printer.drawBarcode(text, 196, 300, 20, 2, 70, 2);
-//                printer.drawBarcode(text, 196, 300, 20, 2, 70, 3);
+//                printerManager.drawBarcode(text, 196, 300, 20, 2, 70, 0);
+//                printerManager.drawBarcode(text, 196, 300, 20, 2, 70, 1);
+//                printerManager.drawBarcode(text, 196, 300, 20, 2, 70, 2);
+//                printerManager.drawBarcode(text, 196, 300, 20, 2, 70, 3);
                 break;
 
             case 2:
-//                BitmapFactory.Options opts = new BitmapFactory.Options();
-//                opts.inPreferredConfig = Bitmap.Config.ARGB_8888;
-//                opts.inDensity = getResources().getDisplayMetrics().densityDpi;
-//                opts.inTargetDensity = getResources().getDisplayMetrics().densityDpi;
-//                Bitmap img = BitmapFactory.decodeResource(getResources(), R.drawable.ticket, opts);
-//                printer.drawBitmap(img, 30, 0);
+                BitmapFactory.Options opts = new BitmapFactory.Options();
+                opts.inPreferredConfig = Bitmap.Config.ARGB_8888;
+                opts.inDensity = this.context.getResources().getDisplayMetrics().densityDpi;
+                opts.inTargetDensity = this.context.getResources().getDisplayMetrics().densityDpi;
+                Bitmap img = BitmapFactory.decodeResource(this.context.getResources(), R.drawable.ticket, opts);
+                printerManager.drawBitmap(img, 30, 0);
                 break;
 
             case 3:
-                printer.drawLine(264, 50, 48, 50, 4);
-                printer.drawLine(156, 0, 156, 120, 2);
-                printer.drawLine(16, 0, 300, 100, 2);
-                printer.drawLine(16, 100, 300, 0, 2);
+//                String str1 = PreferenceManager.getDefaultSharedPreferences(this.context).getString("print_header", "");
+                String header = "Hubrox\r\n";
+                printerManager.drawTextEx(header, 0, 0, 300, -1, "arial", 30, 0, 0, 0);
+                String footer = "Born to Innovate\r\n\n\n";
+                printerManager.drawTextEx(footer, 0, 45, 300, -1, "arial", 25, 0, 0, 0);
                 break;
+            case 4:
+                printerManager.drawLine(264, 50, 48, 50, 4);
+                printerManager.drawLine(156, 0, 156, 120, 2);
+                printerManager.drawLine(16, 0, 300, 100, 2);
+                printerManager.drawLine(16, 100, 300, 0, 2);
         }
 
-        int ret = printer.printPage(0);
+        int ret = printerManager.printPage(0);
         Intent intent = new Intent("urovo.prnt.message");
         intent.putExtra("ret", ret);
 //        this.sendBroadcast(intent);

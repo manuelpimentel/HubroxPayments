@@ -13,53 +13,53 @@
     tools:showIn="@layout/app_bar_about">
 
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="HubRox Payment V0.1"
-        android:id="@+id/textView2"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="39dp"
-        android:layout_centerHorizontal="true" />
+        android:text="HubRox Payment V0.1"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Developed by HubRox Technology Inc."
-        android:id="@+id/textView3"
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="41dp" />
+        android:layout_marginTop="41dp"
+        android:text="Developed by HubRox Technology Inc."
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/imageView2"
-        android:background="@drawable/flag_cp"
-        android:layout_alignTop="@+id/imageView3"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_alignStart="@+id/textView2" />
-
-    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_alignTop="@+id/imageView3"
+        android:background="@drawable/flag_cp" />
+
+    <ImageView
         android:id="@+id/imageView3"
-        android:background="@drawable/flag_ca"
-        android:layout_marginTop="135dp"
-        android:layout_below="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textView2"
         android:layout_alignRight="@+id/textView2"
-        android:layout_alignEnd="@+id/textView2" />
+        android:layout_below="@+id/textView3"
+        android:layout_marginTop="135dp"
+        android:background="@drawable/flag_ca" />
 
     <TextView
+        android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="HUBROX"
-        android:id="@+id/textView5"
-        android:textSize="60dp"
-        android:textStyle="bold"
-        android:textColor="#444141"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:text="HUBROX"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#444141"
+        android:textSize="60dp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

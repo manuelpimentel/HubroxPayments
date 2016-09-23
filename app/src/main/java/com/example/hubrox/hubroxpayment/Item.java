@@ -7,7 +7,7 @@ public class Item {
     private String Desc, Code;
     private float Price;
 
-    public Item(){
+    public Item() {
         super();
     }
 

@@ -17,12 +17,11 @@ public class MagReadService {
     public final static String CARD_TRACK2 = "track2";
     public final static String CARD_TRACK3 = "track3";
     public final static String CARD_VALIDTIME = "validtime";
-
+    private static final int DEFAULT_TAG = 1;
     private Context mContext;
     private Handler mHandler;
     private MagManager magManager;
     private MagReaderThread magReaderThread;
-    private static final int DEFAULT_TAG = 1;
     private byte[] magBuffer = new byte[1024];
 
     public MagReadService(Context context, Handler handler) {

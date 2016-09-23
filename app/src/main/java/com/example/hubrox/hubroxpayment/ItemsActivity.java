@@ -13,14 +13,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -82,7 +80,8 @@ public class ItemsActivity extends AppCompatActivity
                                 sqlController.deleteData(itemCode);
                                 BuildTable();
                                 Toast.makeText(getBaseContext(), "Item Succesfully Deleted", Toast.LENGTH_LONG).show();
-                            }})
+                            }
+                        })
                         .setNegativeButton(android.R.string.no, null).show();
             }
         });
@@ -97,7 +96,7 @@ public class ItemsActivity extends AppCompatActivity
         dialogAdd.show();
     }
 
-    public void editItem(View view){
+    public void editItem(View view) {
         // editing data
         dialogBuilder = new AlertDialog.Builder(this)
                 .setTitle("Edit")
@@ -175,13 +174,12 @@ public class ItemsActivity extends AppCompatActivity
     }
 
 
-
-    public void deleteItem(View view){
+    public void deleteItem(View view) {
         // deleting data
 
         dialogBuilder = new AlertDialog.Builder(this)
-        .setTitle("Delete")
-        .setMessage("Please type the barcode of the item");
+                .setTitle("Delete")
+                .setMessage("Please type the barcode of the item");
         final Context context = this;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = inflater.inflate(R.layout.delete_dialog, null);
@@ -204,7 +202,8 @@ public class ItemsActivity extends AppCompatActivity
                                 sqlController.deleteData(itemCode);
                                 BuildTable();
                                 Toast.makeText(getBaseContext(), "Item Succesfully Deleted", Toast.LENGTH_LONG).show();
-                            }})
+                            }
+                        })
                         .setNegativeButton(android.R.string.no, null).show();
             }
         });
@@ -262,7 +261,7 @@ public class ItemsActivity extends AppCompatActivity
     private void BuildTable() {
 
         sqlController.open();
-        Cursor c = sqlController.readEntry();
+        Cursor c = sqlController.readEntry(true);
 
         int rows = c.getCount();
         int cols = c.getColumnCount();
@@ -300,8 +299,6 @@ public class ItemsActivity extends AppCompatActivity
         }
         sqlController.close();
     }
-
-
 
 
     @Override

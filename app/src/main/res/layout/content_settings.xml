@@ -13,76 +13,76 @@
     tools:showIn="@layout/app_bar_settings">
 
     <ImageView
+        android:id="@+id/imageView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView7"
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="HUBROX"
         android:id="@+id/textView"
-        android:textSize="60dp"
-        android:textStyle="bold"
-        android:textColor="#444141"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:text="HUBROX"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#444141"
+        android:textSize="60dp"
+        android:textStyle="bold" />
 
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/headText"
-        android:layout_below="@+id/textView4"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView4" />
+
+    <EditText
         android:id="@+id/footText"
-        android:layout_below="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/headText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/headText"
-        android:layout_alignEnd="@+id/headText" />
+        android:layout_below="@+id/textView6" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Head Text"
         android:id="@+id/textView4"
-        android:layout_below="@+id/imageView7"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Foot Text"
-        android:id="@+id/textView6"
-        android:layout_marginTop="59dp"
-        android:layout_below="@+id/headText"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/imageView7"
+        android:text="Head Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/headText"
+        android:layout_marginTop="59dp"
+        android:text="Foot Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
+        android:id="@+id/selectLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select Logo"
-        android:id="@+id/selectLogo"
+        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:text="Select Logo" />
 
     <ImageView
+        android:id="@+id/imgView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imgView"
         android:layout_below="@+id/selectLogo"
         android:layout_centerHorizontal="true" />
 

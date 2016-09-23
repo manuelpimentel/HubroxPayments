@@ -22,11 +22,41 @@
         android:text="Lastest Payments"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <TableLayout
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="420dp"
         android:layout_below="@+id/textView7"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/mainTableLayout"></TableLayout>
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true">
+
+
+        <TableLayout
+            android:id="@+id/mainTableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView7">
+            <TableRow>
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_column="0"
+                    android:layout_weight="1"
+                    android:text="Date"></TextView>
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_column="1"
+                    android:layout_weight="1"
+                    android:text="Amount"></TextView>
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_column="2"
+                    android:layout_weight="1"
+                    android:text="Credit Card"></TextView>
+            </TableRow>
+
+        </TableLayout>
+    </ScrollView>
 </RelativeLayout>

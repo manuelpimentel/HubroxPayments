@@ -10,37 +10,37 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.hubrox.hubroxpayment.ItemsActivity"
-        tools:showIn="@layout/app_bar_items">
+    tools:showIn="@layout/app_bar_items">
 
 
     <Button
         android:id="@+id/addButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="addDialog"
-        android:text="Add"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:onClick="addDialog"
+        android:text="Add" />
 
     <Button
         android:id="@+id/editButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="editItem"
-        android:text="Edit"
         android:layout_alignTop="@+id/addButton"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="editItem"
+        android:text="Edit" />
 
     <Button
         android:id="@+id/deleteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="deleteItem"
-        android:text="Delete"
-        android:layout_alignTop="@+id/editButton"
+        android:layout_alignEnd="@+id/scrollView"
         android:layout_alignRight="@+id/scrollView"
-        android:layout_alignEnd="@+id/scrollView" />
+        android:layout_alignTop="@+id/editButton"
+        android:onClick="deleteItem"
+        android:text="Delete" />
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -57,8 +57,7 @@
             android:layout_height="match_parent"
             android:padding="10dp"
             android:shrinkColumns="*"
-            android:stretchColumns="*">
-        </TableLayout>
+            android:stretchColumns="*"></TableLayout>
     </ScrollView>
 
 </RelativeLayout>

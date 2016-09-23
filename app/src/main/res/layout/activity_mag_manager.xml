@@ -21,15 +21,15 @@
         android:id="@+id/magEditText"
         android:layout_width="match_parent"
         android:layout_height="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/magTextView"
         android:layout_weight="1"
         android:editable="false"
         android:gravity="top"
         android:isScrollContainer="true"
-        android:scrollbarStyle="insideOverlay"
-        android:layout_below="@+id/magTextView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"></EditText>
+        android:scrollbarStyle="insideOverlay"></EditText>
 </RelativeLayout>

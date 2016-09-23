@@ -12,13 +12,13 @@ import com.example.hubrox.peripherals.Printer;
 
 public class ICCActivity extends AppCompatActivity {
 
-    private IccManager mIccReader;
     byte[] apdu_utf = {
             0x00, (byte) 0xA4, 0x04, 0x00, 0x0E, 0x31, 0x50, 0x41, 0x59, 0x2E, 0x53,
             0x59, 0x53, 0x2E, 0x44, 0x44, 0x46, 0x30, 0x31, 0x00
     };
-    private EditText editText;
     Printer printerManager = new Printer();
+    private IccManager mIccReader;
+    private EditText editText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

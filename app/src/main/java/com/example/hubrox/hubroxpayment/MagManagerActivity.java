@@ -1,5 +1,6 @@
 package com.example.hubrox.hubroxpayment;
 
+import android.device.PrinterManager;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
@@ -15,14 +16,16 @@ import com.example.hubrox.peripherals.Printer;
 
 public class MagManagerActivity extends AppCompatActivity {
 
+    public final static String string = "Hubrox\r\n";
+    Printer printer = new Printer();
+    SettingsActivity settingsActivity = new SettingsActivity();
+    String headText = settingsActivity.headText;
+    String footText = settingsActivity.footText;
+    PrinterManager printerManager = new PrinterManager();
     private EditText mNo;
     private MagReadService mReadService;
     private ToneGenerator tg = null;
     private TextView mAlertTv;
-    Printer printerManager = new Printer();
-    SettingsActivity settingsActivity = new SettingsActivity();
-    String headText = settingsActivity.headText;
-    String footText = settingsActivity.footText;
     private final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -35,7 +38,18 @@ public class MagManagerActivity extends AppCompatActivity {
                     //mNo.setText("");
                     mNo.append(" track1: " + track1);
                     mNo.append("\n\n");
-                    printerManager.doPrint(3);
+                    /*
+                    printerManager.setupPage(384, -1);
+                    BitmapFactory.Options opts = new BitmapFactory.Options();
+                    opts.inPreferredConfig = Bitmap.Config.ARGB_8888;
+                    opts.inDensity = getResources().getDisplayMetrics().densityDpi;
+                    opts.inTargetDensity = getResources().getDisplayMetrics().densityDpi;
+                    Bitmap img = BitmapFactory.decodeResource(getResources(), R.drawable.hubrox_logo, opts);
+                    printerManager.drawBitmap(img, 30, 0);
+                    String string = "Hubrox";
+                    printerManager.drawTextEx(string, 0, 5, 300, -1, "arial", 25, 0, 0, 0);
+                    */
+                    printer.doPrint(3);
                     break;
                 case MagReadService.MESSAGE_OPEN_MAG:
                     //MyToast.showCrouton(MainActivity.this, "Init Mag Reader faile!", Style.ALERT);
