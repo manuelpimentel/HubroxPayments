@@ -18,12 +18,18 @@ package com.example.hubrox.peripherals;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.device.PrinterManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.widget.Toast;
 
+import com.example.hubrox.hubroxpayment.PaymentsActivity;
 import com.example.hubrox.hubroxpayment.R;
+import com.example.hubrox.hubroxpayment.SQLController;
 import com.example.hubrox.hubroxpayment.SettingsActivity;
+
+import java.util.ArrayList;
 
 /**
  * Created by Jeff Wang on 2016/4/6.
@@ -32,13 +38,17 @@ public class Printer {
 
     PrinterManager printerManager = new PrinterManager();
     SettingsActivity settingsActivity = new SettingsActivity();
+    PaymentsActivity paymentsActivity = new PaymentsActivity();
     private Context context = null;
+    SQLController sqlController;
 
 //    private Context applicationContext = Printer.this;
 
-    public void doPrint(int type) {
+    public void doPrint(int type){
 
         printerManager.setupPage(384, -1);
+        sqlController = new SQLController(context);
+
         switch (type) {
             case 1:
 //                String text = printInfo.getText().toString();
@@ -58,12 +68,31 @@ public class Printer {
                 break;
 
             case 3:
-//                String str1 = PreferenceManager.getDefaultSharedPreferences(this.context).getString("print_header", "");
+
+                /*ArrayList<String> itemCodes = paymentsActivity.itemCodes;
+                int posx = 15;
+
+                //Prints header
                 String header = "Hubrox\r\n";
                 printerManager.drawTextEx(header, 0, 0, 300, -1, "arial", 30, 0, 0, 0);
+
+                //Prints items
+                for (int i = 0; i < itemCodes.size(); i++) {
+                    Cursor c = sqlController.getItem(itemCodes.get(i));
+                    String boughtItem = c.getString(1)+"   "+c.getString(2)+"   "+c.getString(3);
+                    printerManager.drawTextEx(boughtItem, 0, posx, 300, -1, "arial", 25, 0, 0, 0);
+                    posx ++;
+                }
+
+                //Prints total price
+                String price = "Total Price: " + paymentsActivity.total;
+                printerManager.drawTextEx(price, 20, 45, 300, -1, "arial", 25, 0, 0, 0);
+
+                //Prints footer
                 String footer = "Born to Innovate\r\n\n\n";
-                printerManager.drawTextEx(footer, 0, 45, 300, -1, "arial", 25, 0, 0, 0);
-                break;
+                printerManager.drawTextEx(footer, 0, 80, 300, -1, "arial", 30, 0, 0, 0);
+                break;*/
+
             case 4:
                 printerManager.drawLine(264, 50, 48, 50, 4);
                 printerManager.drawLine(156, 0, 156, 120, 2);

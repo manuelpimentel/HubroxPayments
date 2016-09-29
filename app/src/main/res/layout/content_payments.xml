@@ -19,7 +19,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:text="Print Receipt"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        />
 
     <Button
         android:id="@+id/swipeButton"
@@ -28,8 +29,8 @@
         android:layout_above="@+id/textView12"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:text="Swipe"
-        android:onClick="makePayment"/>
+        android:onClick="makePayment"
+        android:text="Swipe" />
 
     <TextView
         android:id="@+id/totalPrice"
@@ -50,8 +51,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/textView12"
         android:layout_centerHorizontal="true"
-        android:text="Insert"
-        android:onClick="makePayment"/>
+        android:onClick="makePayment"
+        android:text="Insert" />
 
     <Button
         android:id="@+id/tapButton"
@@ -60,8 +61,8 @@
         android:layout_alignEnd="@+id/paymentsTableLayout"
         android:layout_alignRight="@+id/paymentsTableLayout"
         android:layout_alignTop="@+id/insertButton"
-        android:text="Tap"
-        android:onClick="makePayment"/>
+        android:onClick="makePayment"
+        android:text="Tap" />
 
 
     <TableLayout

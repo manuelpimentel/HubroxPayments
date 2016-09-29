@@ -6,10 +6,9 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.Date;
 
 
 public class SQLController {
@@ -80,7 +79,6 @@ public class SQLController {
         return c;
 
 
-
     }
 
     public Cursor readEntry(Boolean mod) {
@@ -88,12 +86,12 @@ public class SQLController {
         String[] allColumns = null;
         Cursor c;
 
-        if (mod){
+        if (mod) {
             allColumns = new String[]{MyDbHelper.USER_ID, MyDbHelper.USER_CODE,
                     MyDbHelper.USER_DESC, MyDbHelper.USER_PRICE};
             c = sqLiteDatabase.query(MyDbHelper.TABLE_NAME, allColumns, null, null, null,
                     null, null);
-        }else{
+        } else {
             allColumns = new String[]{MyDbHelper.LP_ID, MyDbHelper.LP_DATE,
                     MyDbHelper.LP_AMOUNT, MyDbHelper.LP_CREDITCARD};
             c = sqLiteDatabase.query(MyDbHelper.LP_TABLE_NAME, allColumns, null, null, null,

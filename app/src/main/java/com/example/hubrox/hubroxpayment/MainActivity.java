@@ -53,49 +53,47 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+    private void BuildTable() {
+        try {
+            sqlController.open();
+            Cursor c = sqlController.readEntry(false);
+            TableRow row;
 
+            int rows = c.getCount();
+            int cols = c.getColumnCount();
 
-        private void BuildTable() {
-            try {
-                sqlController.open();
-                Cursor c = sqlController.readEntry(false);
-                TableRow row;
+            c.moveToFirst();
 
-                int rows = c.getCount();
-                int cols = c.getColumnCount();
+            // outer for loop
+            for (int i = 0; i < rows; i++) {
 
-                c.moveToFirst();
+                row = new TableRow(this);
+                row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
+                        TableRow.LayoutParams.WRAP_CONTENT));
 
-                // outer for loop
-                for (int i = 0; i < rows; i++) {
+                // inner for loop
+                for (int j = 1; j < cols; j++) {
 
-                    row = new TableRow(this);
-                    row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
+                    TextView tv = new TextView(this);
+                    tv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                             TableRow.LayoutParams.WRAP_CONTENT));
-
-                    // inner for loop
-                    for (int j = 1; j < cols; j++) {
-
-                        TextView tv = new TextView(this);
-                        tv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
-                                TableRow.LayoutParams.WRAP_CONTENT));
 //                tv.setBackgroundResource(R.drawable.cell_shape);
-                        tv.setGravity(Gravity.CENTER);
-                        tv.setTextSize(15);
-                        tv.setPadding(0, 5, 0, 5);
+                    tv.setGravity(Gravity.CENTER);
+                    tv.setTextSize(15);
+                    tv.setPadding(0, 5, 0, 5);
 
-                        tv.setText(c.getString(j));
+                    tv.setText(c.getString(j));
 
-                        row.addView(tv);
-
-                    }
-
-                    c.moveToNext();
-
-                    tableLayout.addView(row);
+                    row.addView(tv);
 
                 }
-                sqlController.close();
+
+                c.moveToNext();
+
+                tableLayout.addView(row);
+
+            }
+            sqlController.close();
 
                 /*
 
@@ -140,14 +138,10 @@ public class MainActivity extends AppCompatActivity
                     localTableRow2.addView(localTextView2);
                 }
                 */
-            }
-            catch (NullPointerException nullPointer)
-            {
-                Toast.makeText(getBaseContext(), "No latest payments found", Toast.LENGTH_LONG).show();
-            }
+        } catch (NullPointerException nullPointer) {
+            Toast.makeText(getBaseContext(), "No latest payments found", Toast.LENGTH_LONG).show();
         }
-
-
+    }
 
 
     @Override

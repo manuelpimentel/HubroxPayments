@@ -45,18 +45,11 @@
         <activity
             android:name=".MagManagerActivity"
             android:screenOrientation="portrait" />
+
         <activity android:name=".NFCActivity" />
 
-        <activity android:name=".ICCActivity"></activity>
+        <activity android:name=".ICCActivity"/>
 
-        <activity android:name=".SearchableActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@layout/searchable" />
-        </activity>
     </application>
 
 </manifest>

@@ -30,18 +30,20 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hubrox.peripherals.Printer;
+
 import java.util.ArrayList;
 
 public class PaymentsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
+    //public ArrayList<String> itemCodes = new ArrayList<>();
+    public float total = 0;
     TableRow row;
     TableLayout tableLayout;
     TextView totalPrice;
     SQLController sqlController;
-    float total = 0;
-
     private AlertDialog.Builder dialogBuilder;
     private ScanManager scanManager;
     private boolean isScanning = false;
@@ -87,10 +89,10 @@ public class PaymentsActivity extends AppCompatActivity
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         showScanResult = (EditText) findViewById(R.id.scanResult);
 
-        /*
-        startScanner();
 
-        Button scanButton = (Button) findViewById(R.id.scanButton);
+        //startScanner();
+
+        /*Button scanButton = (Button) findViewById(R.id.scanButton);
         scanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,7 +106,7 @@ public class PaymentsActivity extends AppCompatActivity
                 }
                 scanManager.startDecode();
             }
-        });
+        });*/
 
 
         Button swipeButton = (Button) findViewById(R.id.swipeButton);
@@ -133,7 +135,7 @@ public class PaymentsActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
-        */
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -264,28 +266,28 @@ public class PaymentsActivity extends AppCompatActivity
         dialogBuilder.setPositiveButton("Insert", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                    new AlertDialog.Builder(context)
-                            .setTitle("Insert")
-                            .setMessage("Do you really want to buy this item?")
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int whichButton) {
-                                    //tableLayout.removeAllViews();
-                                    String itemCode = itemCodeEditText.getText().toString();
-                                    sqlController.open();
-                                    Cursor c = sqlController.getItem(itemCode);
-                                    if (c.getCount() > 0) {
-                                        total = Float.parseFloat(c.getString(3)) + total;
-                                        totalPrice.setText("Total: " + total);
-                                        BuildTable(itemCode);
-                                        Toast.makeText(getBaseContext(), "Item Succesfully Added", Toast.LENGTH_LONG).show();
-                                    }
-                                    else{
-                                        Toast.makeText(getBaseContext(), "This item does not exist", Toast.LENGTH_LONG).show();
-                                    }
+                new AlertDialog.Builder(context)
+                        .setTitle("Insert")
+                        .setMessage("Do you really want to buy this item?")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                //tableLayout.removeAllViews();
+                                String itemCode = itemCodeEditText.getText().toString();
+                                sqlController.open();
+                                //itemCodes.add(itemCode);
+                                Cursor c = sqlController.getItem(itemCode);
+                                if (c.getCount() > 0) {
+                                    total = Float.parseFloat(c.getString(3)) + total;
+                                    totalPrice.setText("Total: " + total);
+                                    BuildTable(itemCode);
+                                    Toast.makeText(getBaseContext(), "Item Succesfully Added ", Toast.LENGTH_LONG).show();
+                                } else {
+                                    Toast.makeText(getBaseContext(), "This item does not exist", Toast.LENGTH_LONG).show();
                                 }
-                            })
-                            .setNegativeButton(android.R.string.no, null).show();
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, null).show();
             }
         });
 
@@ -318,15 +320,12 @@ public class PaymentsActivity extends AppCompatActivity
         for (int j = 1; j < cols; j++) {
 
             TextView tv = new TextView(this);
-            tv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
-                    TableRow.LayoutParams.WRAP_CONTENT));
-//                tv.setBackgroundResource(R.drawable.cell_shape);
+            tv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,TableRow.LayoutParams.WRAP_CONTENT));
+            //tv.setBackgroundResource(R.drawable.cell_shape);
             tv.setGravity(Gravity.CENTER);
             tv.setTextSize(15);
             tv.setPadding(0, 5, 0, 5);
-
             tv.setText(c.getString(j));
-
             row.addView(tv);
 
         }
@@ -335,10 +334,10 @@ public class PaymentsActivity extends AppCompatActivity
         sqlController.close();
     }
 
-    public void makePayment(View view){
+    public void makePayment(View view) {
         sqlController.open();
         String amount = Float.toString(total);
-        sqlController.insertPayment(amount,"198389123901");
+        sqlController.insertPayment(amount, "198389123901");
         Toast.makeText(getBaseContext(), "Payment complete", Toast.LENGTH_LONG).show();
     }
 }
