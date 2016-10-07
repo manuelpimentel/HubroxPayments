@@ -118,16 +118,21 @@ public class PaymentsActivity extends AppCompatActivity
         swipeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PaymentsActivity.this, MagManagerActivity.class);
+                if(itemCodes.size()>0) {
+                    Intent intent = new Intent(PaymentsActivity.this, MagManagerActivity.class);
 
-                Bundle bundle = new Bundle();
+                    Bundle bundle = new Bundle();
 
-                bundle.putFloat("TOTAL", total);
-                bundle.putStringArrayList("ITEM_CODES",itemCodes);
+                    bundle.putFloat("TOTAL", total);
+                    bundle.putStringArrayList("ITEM_CODES", itemCodes);
 
-                intent.putExtras(bundle);
+                    intent.putExtras(bundle);
 
-                startActivity(intent);
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(getBaseContext(), "This payment is empty, please add an item", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -137,8 +142,21 @@ public class PaymentsActivity extends AppCompatActivity
         insertButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PaymentsActivity.this, ICCActivity.class);
-                startActivity(intent);
+                if(itemCodes.size()>0){
+
+                    Intent intent = new Intent(PaymentsActivity.this, ICCActivity.class);
+                    Bundle bundle = new Bundle();
+
+                    bundle.putFloat("TOTAL", total);
+                    bundle.putStringArrayList("ITEM_CODES",itemCodes);
+
+                    intent.putExtras(bundle);
+
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(getBaseContext(), "This payment is empty, please add an item", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -146,8 +164,20 @@ public class PaymentsActivity extends AppCompatActivity
         tapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PaymentsActivity.this, NFCActivity.class);
-                startActivity(intent);
+                if(itemCodes.size()>0){
+                    Intent intent = new Intent(PaymentsActivity.this, NFCActivity.class);
+                    Bundle bundle = new Bundle();
+
+                    bundle.putFloat("TOTAL", total);
+                    bundle.putStringArrayList("ITEM_CODES",itemCodes);
+
+                    intent.putExtras(bundle);
+
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(getBaseContext(), "This payment is empty, please add an item", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
