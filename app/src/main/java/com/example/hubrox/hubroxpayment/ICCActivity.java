@@ -1,5 +1,6 @@
 package com.example.hubrox.hubroxpayment;
 
+import android.database.Cursor;
 import android.device.IccManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,8 @@ import android.widget.EditText;
 
 import com.example.hubrox.peripherals.ICCardConvert;
 import com.example.hubrox.peripherals.Printer;
+
+import java.util.ArrayList;
 
 public class ICCActivity extends AppCompatActivity {
 
@@ -20,10 +23,29 @@ public class ICCActivity extends AppCompatActivity {
     private IccManager mIccReader;
     private EditText editText;
 
+    SQLController sqlController;
+
+    float total = 0;
+    ArrayList<String> itemCodes = null;
+    Payment payment;
+    ArrayList<Item> itemList = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_icc);
+
+        sqlController = new SQLController(this);
+        sqlController.open();
+
+        itemList = new ArrayList<>();
+
+        Bundle bundle = getIntent().getExtras();
+        total = bundle.getFloat("TOTAL");
+        itemCodes = bundle.getStringArrayList("ITEM_CODES");
+
+        payment = new Payment(itemCodes,total);
+
 
         editText = (EditText) findViewById(R.id.editText);
 
@@ -59,7 +81,17 @@ public class ICCActivity extends AppCompatActivity {
                 if (status != 0) {
                     editText.append("Please insert IC Card......." + status + "\n");
                 } else {
-                    printerManager.doPrint(3);
+                    for (int j = 0; j < itemCodes.size(); j++){
+                        String itemCode = itemCodes.get(j);
+                        Cursor c = sqlController.getItem(itemCode);
+                        String desc = c.getString(2);
+                        String code = c.getString(1);
+                        float total = Float.parseFloat(c.getString(3));
+                        Item item = new Item(desc,code,total);
+                        itemList.add(item);
+                    }
+
+                    printerManager.doPrint(3,payment,itemList);
                 }
             }
         });

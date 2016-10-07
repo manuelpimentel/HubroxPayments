@@ -1,5 +1,6 @@
 package com.example.hubrox.hubroxpayment;
 
+import android.database.Cursor;
 import android.device.PrinterManager;
 import android.graphics.Color;
 import android.media.AudioManager;
@@ -10,9 +11,12 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hubrox.peripherals.MagReadService;
 import com.example.hubrox.peripherals.Printer;
+
+import java.util.ArrayList;
 
 public class MagManagerActivity extends AppCompatActivity {
 
@@ -26,6 +30,16 @@ public class MagManagerActivity extends AppCompatActivity {
     private MagReadService mReadService;
     private ToneGenerator tg = null;
     private TextView mAlertTv;
+
+    float total = 0;
+    ArrayList<String> itemCodes = null;
+    Payment payment;
+
+    ArrayList<Item> itemList = null;
+
+
+    SQLController sqlController;
+
     private final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -35,10 +49,14 @@ public class MagManagerActivity extends AppCompatActivity {
                     updateAlert("Read the card successed!", 1);
                     beep();
                     String track1 = msg.getData().getString(MagReadService.CARD_TRACK1);
-                    //mNo.setText("");
-                    mNo.append(" track1: " + track1);
-                    mNo.append("\n\n");
+                    String[] split = track1.split("=");
+
                     /*
+                    mNo.setText("");
+                    mNo.append(split[0]);
+                    mNo.append("\n\n");
+
+
                     printerManager.setupPage(384, -1);
                     BitmapFactory.Options opts = new BitmapFactory.Options();
                     opts.inPreferredConfig = Bitmap.Config.ARGB_8888;
@@ -49,7 +67,26 @@ public class MagManagerActivity extends AppCompatActivity {
                     String string = "Hubrox";
                     printerManager.drawTextEx(string, 0, 5, 300, -1, "arial", 25, 0, 0, 0);
                     */
-                    printer.doPrint(3);
+
+
+
+                    sqlController.open();
+                    String amount = Float.toString(total);
+                    sqlController.insertPayment(amount, split[0]);
+
+                    for (int j = 0; j < itemCodes.size(); j++){
+                        String itemCode = itemCodes.get(j);
+                        Cursor c = sqlController.getItem(itemCode);
+                        String desc = c.getString(2);
+                        String code = c.getString(1);
+                        float total = Float.parseFloat(c.getString(3));
+                        Item item = new Item(desc,code,total);
+                        itemList.add(item);
+                    }
+
+                    printer.doPrint(3,payment,itemList);
+
+
                     break;
                 case MagReadService.MESSAGE_OPEN_MAG:
                     //MyToast.showCrouton(MainActivity.this, "Init Mag Reader faile!", Style.ALERT);
@@ -72,10 +109,23 @@ public class MagManagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mag_manager);
 
+        sqlController = new SQLController(this);
+        sqlController.open();
+
+        itemList = new ArrayList<>();
+
+        Bundle bundle = getIntent().getExtras();
+        total = bundle.getFloat("TOTAL");
+        itemCodes = bundle.getStringArrayList("ITEM_CODES");
+
+        payment = new Payment(itemCodes,total);
+
+
         mNo = (EditText) findViewById(R.id.magEditText);
         mAlertTv = (TextView) findViewById(R.id.magTextView);
         tg = new ToneGenerator(AudioManager.STREAM_MUSIC, ToneGenerator.MAX_VOLUME);
         mReadService = new MagReadService(this, mHandler);
+
     }
 
     @Override

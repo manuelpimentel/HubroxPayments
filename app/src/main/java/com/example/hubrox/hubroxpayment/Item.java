@@ -11,6 +11,12 @@ public class Item {
         super();
     }
 
+    public Item(String desc, String code, float price) {
+        Desc = desc;
+        Code = code;
+        Price = price;
+    }
+
     public String getDesc() {
         return Desc;
     }

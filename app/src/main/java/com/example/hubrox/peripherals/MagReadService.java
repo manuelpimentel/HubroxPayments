@@ -115,14 +115,14 @@ public class MagReadService {
                 int allLen = magManager.getAllStripInfo(stripInfo);
                 if (allLen > 0) {
                     int len = stripInfo[1];
-                    if (len != 0)
-                        trackOne.append(" track1: " + new String(stripInfo, 2, len));
+                    /*if (len != 0)
+                        trackOne.append(" track1: " + new String(stripInfo, 2, len));*/
                     int len2 = stripInfo[3 + len];
                     if (len2 != 0)
-                        trackOne.append(" \ntrack2: " + new String(stripInfo, 4 + len, len2));
-                    int len3 = stripInfo[5 + len];
+                        trackOne.append(new String(stripInfo, 4 + len, len2));
+                    /*int len3 = stripInfo[5 + len];
                     if (len3 != 0)
-                        trackOne.append(" \ntrack3: " + new String(stripInfo, 6 + len + len2, len3));
+                        trackOne.append(" \ntrack3: " + new String(stripInfo, 6 + len + len2, len3));*/
                 }
                 Message msg = mHandler.obtainMessage(MESSAGE_READ_MAG);
                 Bundle bundle = new Bundle();

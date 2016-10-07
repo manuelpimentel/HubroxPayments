@@ -1,5 +1,6 @@
 package com.example.hubrox.hubroxpayment;
 
+import android.database.Cursor;
 import android.device.PiccManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,10 +16,18 @@ import android.widget.Toast;
 import com.example.hubrox.peripherals.Printer;
 import com.example.hubrox.peripherals.SoundTool;
 
+import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class NFCActivity extends AppCompatActivity implements View.OnClickListener {
+
+    float total = 0;
+    ArrayList<String> itemCodes = null;
+    Payment payment;
+    ArrayList<Item> itemList = null;
+
+
     private static final String TAG = "PiccCheck";
 
     private static final int MSG_BLOCK_NO_NONE = 0;
@@ -77,6 +86,8 @@ public class NFCActivity extends AppCompatActivity implements View.OnClickListen
     private PiccManager piccReader;
     private Handler handler;
     private ExecutorService exec;
+
+    SQLController sqlController;
 
     /**
      * Check if a (hex) string is pure hex (0-9, A-F, a-f) and 16 byte
@@ -159,6 +170,18 @@ public class NFCActivity extends AppCompatActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nfc);
+
+        sqlController = new SQLController(this);
+        sqlController.open();
+
+        itemList = new ArrayList<>();
+
+        Bundle bundle = getIntent().getExtras();
+        total = bundle.getFloat("TOTAL");
+        itemCodes = bundle.getStringArrayList("ITEM_CODES");
+
+        payment = new Payment(itemCodes,total);
+
         piccReader = new PiccManager();
         exec = Executors.newSingleThreadExecutor();
         handler = new Handler() {
@@ -288,7 +311,18 @@ public class NFCActivity extends AppCompatActivity implements View.OnClickListen
                         Message msg = handler.obtainMessage(MSG_FOUND_UID);
                         msg.obj = bytesToHexString(SN, SNLen);
                         handler.sendMessage(msg);
-                        printerManager.doPrint(3);
+
+                        for (int j = 0; j < itemCodes.size(); j++){
+                            String itemCode = itemCodes.get(j);
+                            Cursor c = sqlController.getItem(itemCode);
+                            String desc = c.getString(2);
+                            String code = c.getString(1);
+                            float total = Float.parseFloat(c.getString(3));
+                            Item item = new Item(desc,code,total);
+                            itemList.add(item);
+                        }
+
+                        printerManager.doPrint(3,payment,itemList);
                     }
 
                 }
